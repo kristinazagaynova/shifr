@@ -49,6 +49,6 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
             i = chr(ord(i) - n)
         plaintext = plaintext + i
     return plaintext
-
+    
 
 
