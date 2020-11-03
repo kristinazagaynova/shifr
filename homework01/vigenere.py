@@ -15,17 +15,15 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     d=0
     for i in x:
             if i.isalpha():
-                if ord(k[d])>=65 and ord(k[d]) <=90:
-                    if (((ord(i) + ord(k[d])%65) > 90) and (ord(i) <= 90)) or (((ord(i) + ord(k[d])%65) > 122 )and (ord(i) <= 122)):
-                        i=chr(ord(i)-26)
-                    i=chr(ord(i)+ord(k[d])%65)
-                elif ord(k[d])>=97 and ord(k[d]) <=122:
-                    if (((ord(i) + ord(k[d])%97) > 90) and (ord(i) <= 90))or (((ord(i) + ord(k[d])%97)>122) and (ord(i) <= 122)):
-                        i=chr(ord(i)-26)    
-                    i=chr(ord(i)+ord(k[d])%97)
-                d=d+1
-                if d==len(k):
-                    d=0
+                if ord(k[d % len(k)]) >= 65 and ord(k[d % len(k)]) <= 90:
+                    s = ord(k[d % len(k)]) - 65
+                elif ord(k[d % len(k)]) >= 97 and ord(k[d % len(k)]) <= 122:
+                    s = ord(k[d % len(k)]) - 97
+                if ord(i)>=65 and ord(i)<=90:
+                    i = chr((((ord(i) - 65) + s) % 26) + 65)
+                if ord(i)>=97 and ord(i)<=122:
+                    i = chr((((ord(i) - 97) + s) % 26) + 97
+            d=d+1
             ciphertext=ciphertext+i
     return ciphertext
 
@@ -47,16 +45,14 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     d=0
     for i in x:
             if i.isalpha():
-                if ord(k[d])>=65 and ord(k[d]) <=90:
-                    if (((ord(i) - ord(k[d])%65) < 65) and (ord(i) >= 65)) or (((ord(i) - ord(k[d])%65) < 97)and (ord(i) >= 97)):
-                        i=chr(ord(i)+26)
-                    i=chr(ord(i)-ord(k[d])%65)
-                elif ord(k[d])>=97 and ord(k[d]) <=122:
-                    if (((ord(i) - ord(k[d])%97)  <65) and (ord(i) >= 65))or (((ord(i) - ord(k[d])%97)<97) and (ord(i) >= 97)):
-                        i=chr(ord(i)+26)    
-                    i=chr(ord(i)-ord(k[d])%97)
-                d=d+1
-                if d==len(k):
-                    d=0
+                if ord(k[d % len(k)]) >= 65 and ord(k[d % len(k)]) <= 90:
+                    s = ord(k[d % len(k)]) - 65
+                elif ord(k[d % len(k)]) >= 97 and ord(k[d % len(k)]) <= 122:
+                    s = ord(k[d % len(k)]) - 97
+                if ord(i)>=65 and ord(i)<=90:
+                    i = chr((((ord(i) - 65) - s) % 26) + 65)
+                if ord(i)>=97 and ord(i)<=122:
+                    i = chr((((ord(i) - 97) - s) % 26) + 97)
+            d=d+1
             plaintext=plaintext+i
     return plaintext
